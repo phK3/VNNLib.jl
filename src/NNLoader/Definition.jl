@@ -4,9 +4,9 @@ struct Network
     layers::Vector{Layer}
 end
 
-struct Dense <: Layer
-    W::Matrix{Float64}
-    b::Vector{Float64}
+struct Dense{N<:Number,WN<:AbstractMatrix{N},BN<:AbstractVector{N}} <: Layer
+    W::WN
+    b::BN
 end
 
 struct ReLU <: Layer end
