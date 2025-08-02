@@ -74,6 +74,12 @@ function test_multi_input_multi_output()
     compare_model_file(model_path)
 end
 
+function test_lhc()
+    @info "Testing LHC model (integration test)"
+    model_path = joinpath(@__DIR__, "../../../resources/small_onnx_tests/2_80-1-0.1.onnx")
+    compare_model_file(model_path)
+end
+
 
 function test_individual_nodes()
     @info "Testing individual ONNX nodes"
@@ -96,4 +102,5 @@ end
 @testset "OnnxParser.jl" verbose=true begin
     test_multi_input_multi_output()
     test_individual_nodes()
+    test_lhc()
 end
