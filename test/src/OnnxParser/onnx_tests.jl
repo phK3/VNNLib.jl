@@ -54,6 +54,10 @@ function compare_outputs(outputs_oxp::Dict{String,<:AbstractArray}, outputs_ox::
     for (name, output_oxp) in outputs_oxp
         output_ox = outputs_ox[name]
         @test size(output_oxp) == size(output_ox) #"Output sizes do not match for $name! Got $(size(output_oxp)) but expected $(size(output_ox))"
+        max_diff = maximum(abs.(output_oxp .- output_ox))
+        if !all(output_oxp .≈ output_ox)
+            @warn "Outputs do not match for $(name)!\nVNNLib.jl: $(output_oxp)\nONNXRuntime: $(output_ox)\nMax difference: $max_diff"
+        end
         @test all(output_oxp .≈ output_ox) #"Outputs do not match for $name! Got $(output_oxp) but expected $(output_ox)"
     end
 end
